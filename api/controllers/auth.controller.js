@@ -2,7 +2,7 @@ const User = require('./../models/user.model.js')
 const ResponseMsgs = require('./../utilities/responseMsgs.js')
 const bcrypt = require('bcryptjs')
 
-const signUp = async (req, res) => {
+const signUp = async (req, res, next) => {
    try{
         const {userName, userEmail, password} = req.body
         if (!userEmail || !userName || !password) {

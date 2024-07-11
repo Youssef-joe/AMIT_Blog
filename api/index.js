@@ -23,6 +23,16 @@ app.use(express.json());
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 
+// app.use((err,req,res,next) => {
+//     const statussCode = err.statusCode || 500
+//     const message = err.message || "Internal Server Error"
+//     res.statussCode.json({
+//         success: false,
+//         statussCode,
+//         message 
+//     })
+// })
+
 app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}`);
 });

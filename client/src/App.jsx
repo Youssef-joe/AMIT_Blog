@@ -1,12 +1,12 @@
 import React from 'react'
 import { Fragment } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './Projects/Home'
-import About from './Projects/About'
-import Projects from './Projects/Projects'
-import SignIn from './Projects/SignIn'
-import SignUp from './Projects/SignUp'
-import Dashboard from './Projects/Dashboard'
+import Home from './Pages/Home'
+import About from './Pages/About'
+import Projects from './Pages/Projects'
+import SignIn from './Pages/SignIn'
+import SignUp from './Pages/SignUp'
+import Dashboard from './Pages/Dashboard'
 import Header from './components/Header'
 
 export default function App() {
