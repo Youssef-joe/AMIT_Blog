@@ -1,36 +1,33 @@
-const User = require('./../models/user.model.js')
-const ResponseMsgs = require('./../utilities/responseMsgs.js')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const User = require('../models/user.model.js'); // Adjust the path according to your project structure
 
-const signUp = async (req, res, next) => {
-   try{
-        const {userName, userEmail, password} = req.body
-        if (!userEmail || !userName || !password) {
-            res.status(400).json({
-                message: "All Fields Are Required"
-            })
-        }
-        const hashedPass = bcrypt.hashSync(password, 10)
-        const newUser = new User({
-            userName,
-            userEmail,
-            password: hashedPass
-        })
+const signUp = async (req, res) => {
+  try {
+    const { username, userEmail, userPass } = req.body;
+    console.log('Received data:', req.body);
 
-        await newUser.save()
+    if (!username || !userEmail || !userPass) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
 
-    res.status(200).json({
-        message : "Signup is successful"
-    })
-   } catch(er) {
-        console.log(er)
-        res.status(400).json({
-            message : ResponseMsgs.FAIL,
-            data : er.message ? er.message : er
-        })
-   }
-}
+    const hashedPassword = bcrypt.hashSync(userPass, 10);
 
-module.exports = {
-    signUp
-}
+    const newUser = new User({
+      username,
+      userEmail,
+      userPass: hashedPassword
+    });
+
+    await newUser.save();
+
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error(error); // Log the error to understand what went wrong
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Username or email already exists' });
+    }
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { signUp };
